@@ -1,0 +1,92 @@
+###Prueba datos completa (movie create)
+POST http://localhost:3000/api/v1/movies
+Content-Type: application/json
+
+{
+  "title": "AngieTestEricaZully",
+  "director": "Lee Unkrich, Adrian Molina",
+  "genre": "Animación, Aventura",
+  "duration": "01:45:00",
+  "synopsis": "Un niño viaja al inframundo para descubrir la verdad sobre su familia.",
+  "year": 2017,
+  "countryOrigin": "Estados Unidos",
+  "screeningRoom": "Sala 4",
+  "schedule": "18:00:00"
+}
+
+
+###Pruebas datos incompleto (Sin title puesto es obligatoria-400)
+POST http://localhost:3000/api/v1/movies
+Content-Type: application/json
+
+{
+  "director": "Mel Gibson",
+  "genre": "Drama, Guerra",
+  "duration": "02:19:00",
+  "synopsis": "Un joven pacifista se une al ejército durante la Segunda Guerra Mundial como médico de combate.",
+  "year": 2016,
+  "countryOrigin": "Estados Unidos",
+  "screeningRoom": "Sala 4",
+  "schedule": "16:30:00"
+}
+
+### Datos sin formato respectivo (400)
+POST http://localhost:3000/api/v1/movies
+Content-Type: application/json
+
+{
+  "title": "Test Movie",
+  "director": "Test Director",
+  "genre": "Action",
+  "duration": "2 horas",
+  "synopsis": "Descripcion ingresada",
+  "year": "1995",
+  "countryOrigin": "Colombia",
+  "screeningRoom": "sala 12",
+  "schedule": "01:30:00"
+}
+
+### Actualizacion exitosa
+PATCH  http://localhost:3000/api/v1/movies/99
+Content-Type: application/json
+
+{
+  "title": "Tania"
+}
+
+### Sin dato
+PATCH  http://localhost:3000/api/v1/movies/48
+Content-Type: application/json
+
+{
+
+}
+
+### Id no encontrado
+PATCH  http://localhost:3000/api/v1/movies/999
+Content-Type: application/json
+
+{
+  "title": "Angie"
+}
+
+### Todos los registros más actuales
+curl -v GET http://localhost:3000/api/v1/movies
+Content-Type: application/json
+
+### pagina inexistente
+curl -v GET http://localhost:3000/api/v1/movies?pageRequired=1
+Content-Type: application/json
+
+### pagina sin formato
+curl -v GET http://localhost:3000/api/v1/movies?pageRequired=aaaa
+Content-Type: application/json
+
+###Eliminación por ID exitosa
+DELETE http://localhost:3000/api/v1/movies/74
+
+###Eliminación por ID invalido
+DELETE http://localhost:3000/api/v1/movies/abc123
+
+###Eliminación por ID no encontrado (ya eliminado o no existe)
+DELETE http://localhost:3000/api/v1/movies/999
